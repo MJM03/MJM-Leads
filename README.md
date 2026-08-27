@@ -1,48 +1,36 @@
 # MJM Leads V2
 
-CRM y buscador de prospectos para **MJM Systems**, preparado para GitHub Pages.
+CRM de prospección para **MJM Systems**, funcionando directamente en GitHub Pages.
 
-## Qué trae la V2
+## Arquitectura
 
-- Búsqueda de negocios reales por rubro + zona usando Google Places.
-- Trae datos públicos disponibles: nombre, rubro, dirección, teléfono, web, Google Maps, rating y reseñas.
-- Scoring automático de 1 a 99.
-- Detecta señales comerciales como negocio sin web, teléfono público y actividad/reseñas.
-- Recomienda qué vender: Web / catálogo, Inventario / POS, Automatización / CRM o Sistema a medida.
-- Botón para pasar un resultado directamente al CRM.
+La V2 no necesita backend, Google Cloud, API keys ni servicios externos para funcionar.
+
+- Frontend estático en GitHub Pages.
+- Base curada de prospectos públicos dentro del repositorio.
+- CRM y cambios del usuario guardados con `localStorage`.
+- Exportación CSV desde el navegador.
+
+## Qué trae
+
+- Prospectos reales obtenidos de fuentes públicas y verificables.
+- Nombre, rubro, distrito, teléfono/WhatsApp cuando está publicado, web y fuente.
+- Scoring comercial de 1 a 100.
+- Recomendación de qué vender: Web / catálogo, Inventario / POS, Automatización / CRM o Sistema a medida.
+- Señales y notas comerciales por prospecto.
 - Pipeline: Nuevo → Contactado → Interesado → Reunión → Ganado / Perdido.
-- Filtros, alta, edición y eliminación de leads.
-- Accesos a WhatsApp, web y Google Maps.
+- Filtros por distrito, oportunidad y estado.
+- Alta, edición y eliminación de leads.
+- Accesos directos a WhatsApp, web y fuente pública.
 - Exportación CSV.
-- Persistencia local con `localStorage`.
 - Responsive para móvil y escritorio.
 
-## Activar búsquedas reales en GitHub Pages
+## Cómo se actualiza la base
 
-La web funciona sin backend. Para usar el buscador real necesitas una Google Maps Platform API key.
+La base pública se actualiza editando `app.js` en el repositorio. De esta forma la web sigue siendo gratuita y simple, como Inventory Leads.
 
-1. En Google Cloud crea o selecciona un proyecto.
-2. Habilita **Maps JavaScript API**.
-3. Habilita **Places API (New)**.
-4. Crea una API key.
-5. En restricciones de aplicación selecciona **Websites / HTTP referrers**.
-6. Permite únicamente tu URL de GitHub Pages, por ejemplo `https://TUUSUARIO.github.io/MJM-Leads/*`.
-7. En restricciones de API limita la clave a Maps JavaScript API y Places API (New).
-8. Abre MJM Leads → `Buscar clientes reales` → pega la clave y presiona `Guardar clave`.
-
-La clave queda guardada en `localStorage` del navegador. No se escribe en el repositorio.
-
-## Cómo usarlo
-
-Busca términos concretos como:
-
-- `ferreterías` + `San Miguel, Lima, Perú`
-- `dentistas` + `Callao, Perú`
-- `tiendas de ropa` + `Miraflores, Lima, Perú`
-- `distribuidoras` + `Lima, Perú`
-
-Los resultados se ordenan por score. Revisa la oportunidad sugerida y añade al CRM solo los prospectos que tengan sentido comercial.
+El CRM local usa una copia de esa base en el navegador. El botón `Restaurar base` vuelve a cargar la versión curada incluida actualmente en el repositorio.
 
 ## Importante
 
-MJM Leads utiliza información pública disponible a través del proveedor configurado. Verifica los datos antes de contactar. No está diseñado para spam, envío masivo ni recolección de datos privados.
+Los datos provienen de fuentes públicas. Deben verificarse antes de contactar. MJM Leads está pensado para prospección manual y personalizada, no para spam ni envío masivo.
