@@ -3,24 +3,108 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080c16">
-<title>MJM Leads V2</title>
-<link rel="stylesheet" href="styles.css">
+<meta name="theme-color" content="#081220">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>MJM Leads · MJM Systems</title>
+<link rel="stylesheet" href="styles.css?v=mobile3">
 </head>
 <body>
+<div class="appShell">
+<header class="topbar" id="inicio">
+  <a class="brand" href="#inicio" aria-label="MJM Leads inicio">
+    <span class="brandMark"><i>M</i></span>
+    <span class="brandCopy"><strong>MJM</strong><em>SYSTEMS</em><small>MJM Leads</small></span>
+  </a>
+  <div class="desktopActions">
+    <button class="btn ghost" onclick="exportCSV()">Exportar CSV</button>
+    <button class="btn primary" onclick="openAdd()">+ Nuevo prospecto</button>
+  </div>
+  <button class="iconBtn mobileOnly" onclick="openAdd()" aria-label="Agregar prospecto">+</button>
+</header>
+
 <main class="app">
-<header class="top"><div class="brand"><div class="logo">M</div><div><b>MJM Leads V2</b><span>Prospección inteligente · MJM Systems</span></div></div><div class="topActions"><button class="btn" onclick="exportCSV()"><span class="secondaryLabel">Exportar</span> CSV</button><button class="btn primary" onclick="openAdd()">+ Lead</button></div></header>
-<section class="hero"><div class="heroMain"><div class="eyebrow">Motor comercial V2</div><h1>Prospectos reales, priorizados y listos para contactar.</h1><p>Base curada con información pública, scoring comercial y recomendación automática de qué solución de MJM Systems ofrecer. Todo funciona directamente sobre GitHub Pages.</p></div><aside class="heroSide"><div><small>Sin servicios externos</small><h2>100% GitHub Pages</h2><p>No necesitas Google Cloud, API keys, backend ni facturación. El CRM y tus cambios se guardan localmente en tu navegador.</p></div><button class="btn green" onclick="showHot()">Ver oportunidades calientes</button></aside></section>
-<section class="stats" id="stats"></section>
-<section class="panel"><div class="toolbar"><input id="q" class="ctl" placeholder="Buscar negocio, rubro, zona u oportunidad" oninput="renderCRM()"><select id="district" class="ctl" onchange="renderCRM()"><option value="all">Todos los distritos</option></select><select id="need" class="ctl" onchange="renderCRM()"><option value="all">Todas las oportunidades</option><option>Web / catálogo</option><option>Inventario / POS</option><option>Automatización / CRM</option><option>Sistema a medida</option></select><select id="status" class="ctl" onchange="renderCRM()"><option value="all">Todos los estados</option><option>Nuevo</option><option>Contactado</option><option>Interesado</option><option>Reunión</option><option>Ganado</option><option>Perdido</option></select><button class="btn" onclick="restoreBase()">Restaurar base</button></div></section>
-<div class="sectionHead"><div><h2>Prospectos</h2><span id="count"></span></div><span>Base pública curada</span></div>
-<section class="grid" id="grid"></section>
-<div class="foot">MJM Leads V2 · Base curada con información pública. Verifica los datos antes de contactar y evita mensajes masivos no solicitados.</div>
+  <section class="hero">
+    <div class="heroMain">
+      <div class="eyebrow"><span></span> PROSPECCIÓN COMERCIAL</div>
+      <h1>Convierte prospectos en <mark>oportunidades reales.</mark></h1>
+      <p>Encuentra, prioriza y gestiona empresas a las que MJM Systems puede ayudar con software, automatización e infraestructura digital.</p>
+      <div class="heroActions">
+        <button class="btn primary" onclick="document.getElementById('prospectos').scrollIntoView({behavior:'smooth'})">Ver prospectos</button>
+        <button class="btn soft" onclick="showHot()">Oportunidades calientes</button>
+      </div>
+    </div>
+    <aside class="heroSide">
+      <span class="heroSideIcon">↗</span>
+      <small>TECNOLOGÍA CON PROPÓSITO</small>
+      <h2>Ingeniería que <b>trasciende.</b></h2>
+      <p>Prospección clara, datos útiles y una propuesta concreta para cada negocio.</p>
+    </aside>
+  </section>
+
+  <section class="stats" id="stats"></section>
+
+  <section class="searchCard" id="prospectos">
+    <div class="searchTitle">
+      <div><span class="kicker">BASE COMERCIAL</span><h2>Prospectos</h2></div>
+      <span id="count" class="countBadge"></span>
+    </div>
+    <div class="searchWrap">
+      <span class="searchIcon">⌕</span>
+      <input id="q" class="ctl searchInput" placeholder="Buscar empresa, rubro o zona..." oninput="renderCRM()" autocomplete="off">
+    </div>
+    <div class="filterScroll">
+      <select id="district" class="ctl pillSelect" onchange="renderCRM()"><option value="all">Todos los distritos</option></select>
+      <select id="need" class="ctl pillSelect" onchange="renderCRM()"><option value="all">Todas las soluciones</option><option>Web / catálogo</option><option>Inventario / POS</option><option>Automatización / CRM</option><option>Sistema a medida</option></select>
+      <select id="status" class="ctl pillSelect" onchange="renderCRM()"><option value="all">Todos los estados</option><option>Nuevo</option><option>Contactado</option><option>Interesado</option><option>Reunión</option><option>Ganado</option><option>Perdido</option></select>
+      <button class="btn resetBtn" onclick="restoreBase()">Restaurar</button>
+    </div>
+  </section>
+
+  <section class="grid" id="grid"></section>
+
+  <section class="manifesto">
+    <div><span class="kicker">MJM SYSTEMS</span><h2>Diseñamos. Construimos.<br><b>Evolucionamos. Juntos.</b></h2></div>
+    <p>Construimos sistemas digitales escalables, seguros y eficientes que impulsan el crecimiento de nuestros clientes.</p>
+  </section>
+
+  <footer class="foot">MJM Leads · Información comercial obtenida de fuentes públicas. Verifica los datos antes de contactar.</footer>
 </main>
-<dialog id="leadDialog"><div class="sheet"><div class="sheetTop"><div><h2 id="dialogTitle">Nuevo lead</h2><div class="meta">Guarda el prospecto y continúa el seguimiento desde el CRM.</div></div><button class="btn close" onclick="leadDialog.close()">×</button></div><div class="formgrid"><input id="fCompany" class="ctl wide" placeholder="Empresa"><input id="fSector" class="ctl" placeholder="Rubro"><input id="fDistrict" class="ctl" placeholder="Distrito"><input id="fPhone" class="ctl" placeholder="Teléfono / WhatsApp"><input id="fWeb" class="ctl" placeholder="Web"><input id="fSource" class="ctl wide" placeholder="Fuente pública"><select id="fNeed" class="ctl"><option>Web / catálogo</option><option>Inventario / POS</option><option>Automatización / CRM</option><option>Sistema a medida</option></select><input id="fScore" class="ctl" type="number" min="1" max="100" value="80"><select id="fStatus" class="ctl"><option>Nuevo</option><option>Contactado</option><option>Interesado</option><option>Reunión</option><option>Ganado</option><option>Perdido</option></select><textarea id="fNote" class="ctl wide" rows="4" placeholder="Señales / notas"></textarea><button class="btn primary wide" onclick="saveLead()">Guardar lead</button></div></div></dialog>
+
+<nav class="mobileNav" aria-label="Navegación principal">
+  <button onclick="document.getElementById('inicio').scrollIntoView({behavior:'smooth'})"><span>⌂</span><small>Inicio</small></button>
+  <button onclick="document.getElementById('prospectos').scrollIntoView({behavior:'smooth'})"><span>◎</span><small>Prospectos</small></button>
+  <button class="navAdd" onclick="openAdd()"><span>＋</span><small>Agregar</small></button>
+  <button onclick="showHot()"><span>↗</span><small>Prioridad</small></button>
+  <button onclick="exportCSV()"><span>⇩</span><small>Exportar</small></button>
+</nav>
+</div>
+
+<dialog id="leadDialog">
+  <div class="sheet">
+    <div class="sheetHandle"></div>
+    <div class="sheetTop">
+      <div><span class="kicker">MJM LEADS</span><h2 id="dialogTitle">Nuevo prospecto</h2><div class="meta">Registra la empresa y continúa el seguimiento desde el CRM.</div></div>
+      <button class="iconBtn close" onclick="leadDialog.close()" aria-label="Cerrar">×</button>
+    </div>
+    <div class="formgrid">
+      <label class="field wide"><span>Empresa</span><input id="fCompany" class="ctl" placeholder="Nombre de la empresa"></label>
+      <label class="field"><span>Rubro</span><input id="fSector" class="ctl" placeholder="Ej. Ferretería"></label>
+      <label class="field"><span>Distrito</span><input id="fDistrict" class="ctl" placeholder="Distrito"></label>
+      <label class="field"><span>WhatsApp / teléfono</span><input id="fPhone" class="ctl" placeholder="999 999 999"></label>
+      <label class="field"><span>Sitio web</span><input id="fWeb" class="ctl" placeholder="https://..."></label>
+      <label class="field wide"><span>Fuente pública</span><input id="fSource" class="ctl" placeholder="URL de referencia"></label>
+      <label class="field"><span>Solución sugerida</span><select id="fNeed" class="ctl"><option>Web / catálogo</option><option>Inventario / POS</option><option>Automatización / CRM</option><option>Sistema a medida</option></select></label>
+      <label class="field"><span>Score</span><input id="fScore" class="ctl" type="number" min="1" max="100" value="80"></label>
+      <label class="field"><span>Estado</span><select id="fStatus" class="ctl"><option>Nuevo</option><option>Contactado</option><option>Interesado</option><option>Reunión</option><option>Ganado</option><option>Perdido</option></select></label>
+      <label class="field wide"><span>Notas</span><textarea id="fNote" class="ctl" rows="4" placeholder="Señales, necesidades o información relevante..."></textarea></label>
+      <button class="btn primary wide saveBtn" onclick="saveLead()">Guardar prospecto</button>
+    </div>
+  </div>
+</dialog>
 <div id="toast" class="toast"></div>
 <script src="app.js?v=29"></script>
 <script src="leads-extra.js?v=47"></script>
-<script src="offers.js?v=1"></script>
+<script src="offers.js?v=2"></script>
 </body>
 </html>
