@@ -1,5 +1,10 @@
 // Inventory Leads-inspired workflow for MJM Leads.
 (function(){
+  if(!document.getElementById('stats')){
+    const compat=document.createElement('div');compat.hidden=true;
+    compat.innerHTML='<div id="stats"></div><input id="q"><select id="district"><option value="all">all</option></select><select id="need"><option value="all">all</option></select><select id="status"><option value="all">all</option></select><span id="count"></span><div id="grid"></div>';
+    document.body.appendChild(compat);
+  }
   const TRACK_KEY='mjmTrackedIdsV1';
   const customLead=id=>!String(id||'').startsWith('c');
   const readTracked=()=>{try{return new Set(JSON.parse(localStorage.getItem(TRACK_KEY)||'[]'))}catch{return new Set()}};
